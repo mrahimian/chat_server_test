@@ -15,17 +15,19 @@ public class Main {
 
     public static void main(String[] args) throws InterruptedException {
 
+
         ExecutorService ex = Executors.newWorkStealingPool(16);
         var startTs = System.currentTimeMillis();
-        var iterations = 500;
+        var iterations = 1002;
 
         var latch = new CountDownLatch(iterations);
+//        Thread.sleep(2000);
 
         for (int i = 0; i < iterations; i++) {
             ex.execute(() -> {
                 var before = System.currentTimeMillis();
-                var url = "http://localhost:80/user/" + getRandomNumberUsingNextInt(0, 100_000);
-                var body = String.format("{\"to\":%d,\"message\":\"Hello world\"}", getRandomNumberUsingNextInt(0, 100_000));
+                var url = "http://localhost:80/user/rt" + getRandomNumberUsingNextInt(0, 100_000);
+                var body = String.format("{\"to\":%d,\"message\":\"Hello World\"}", getRandomNumberUsingNextInt(0, 100_000));
 
                 HttpRequest request = HttpRequest.newBuilder()
                         .uri(URI.create(url))
